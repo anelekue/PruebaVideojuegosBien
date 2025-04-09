@@ -1,23 +1,29 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class Disparo : MonoBehaviour
+public class bala : MonoBehaviour
 {
-    public GameObject balaPrefab;     // Prefab de la bala
-    public Transform puntoDisparo;    // Lugar desde donde se dispara
-    public float fuerzaDisparo = 20f; // Velocidad de la bala
+    public int force;
+    public GameObject bullet;
+    // Start is called before the first frame update
+    void Start()
+    {
 
+    }
+
+    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) // Cambia la tecla si quieres
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            Disparar();
+            DoShoot();
         }
     }
 
-    void Disparar()
+    void DoShoot()
     {
-        GameObject bala = Instantiate(balaPrefab, puntoDisparo.position, puntoDisparo.rotation);
-        Rigidbody rb = bala.GetComponent<Rigidbody>();
-        rb.velocity = puntoDisparo.forward * fuerzaDisparo;
+        GameObject instanciatedBullet = Instantiate(bullet, this.transform.position, this.transform.rotation);
+        instanciatedBullet.GetComponent<Rigidbody>().AddForce(transform.forward * force);
     }
 }
